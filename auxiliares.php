@@ -1,7 +1,6 @@
 <?php
-// Conexión PDO
-$pdo = new PDO('mysql:host=localhost;dbname=facturassalt', 'root', '');
-$pdo->exec("SET NAMES utf8mb4");
+$title = 'Gestión de Auxiliares';
+require_once 'bd/db.php';
 
 
 // Seleccionar la tabla en modo seguro (default: iva)
@@ -86,14 +85,7 @@ if ($aux === 'iva') {
     $rows = $pdo->query("SELECT * FROM retenciones ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Auxiliares</title>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+<?php require_once 'templates/header.php'; ?>
 <body class="bg-gray-100 p-7" x-data="auxCrud('<?= $aux ?>')">
 
     <form method="get" class="mb-6">
@@ -303,5 +295,4 @@ if ($aux === 'iva') {
             <?php endif; ?>
         });
     </script>
-</body>
-</html>
+<?php require_once 'templates/footer.php'; ?>
