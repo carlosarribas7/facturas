@@ -167,7 +167,9 @@ $stmt->execute();
 $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <?php require_once 'templates/header.php'; ?>
-<body class="bg-gray-100 p-7"
+<body class="bg-gray-100">
+<?php require_once 'templates/menu.php'; ?>
+<div class="p-7"
       x-data="proveedoresCrud(<?= htmlspecialchars(json_encode($listaProvincias), ENT_QUOTES, 'UTF-8') ?>, <?= htmlspecialchars(json_encode($listaGastos), ENT_QUOTES, 'UTF-8') ?>)">
 
     <?php if (!empty($_SESSION['mensaje_proveedor'])): ?>

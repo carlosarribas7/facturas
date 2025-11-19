@@ -150,7 +150,9 @@ $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 <?php require_once 'templates/header.php'; ?>
-<body class="bg-gray-100 p-7"
+<body class="bg-gray-100">
+<?php require_once 'templates/menu.php'; ?>
+<div class="p-7"
       x-data="facturasCrud(<?= htmlspecialchars(json_encode($listaProveedores), ENT_QUOTES, 'UTF-8') ?>, <?= htmlspecialchars(json_encode($listaTipoGasto), ENT_QUOTES, 'UTF-8') ?>, <?= htmlspecialchars(json_encode($listaRetenciones), ENT_QUOTES, 'UTF-8') ?>, <?= htmlspecialchars(json_encode($listaPagos), ENT_QUOTES, 'UTF-8') ?>, <?= htmlspecialchars(json_encode($listaIVA), ENT_QUOTES, 'UTF-8') ?>)">
 <?php if(!empty($_SESSION['error_facturas'])){ echo "<div class='bg-red-100 border border-red-300 text-red-800 p-3 rounded mb-4'>".htmlspecialchars($_SESSION['error_facturas'])."</div>"; unset($_SESSION['error_facturas']); } ?>
 

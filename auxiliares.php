@@ -86,7 +86,9 @@ if ($aux === 'iva') {
 }
 ?>
 <?php require_once 'templates/header.php'; ?>
-<body class="bg-gray-100 p-7" x-data="auxCrud('<?= $aux ?>')">
+<body class="bg-gray-100">
+<?php require_once 'templates/menu.php'; ?>
+<div class="p-7" x-data="auxCrud('<?= $aux ?>')">
 
     <form method="get" class="mb-6">
         <label class="font-bold mr-2 text-lg">Ver tabla:</label>
