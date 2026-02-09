@@ -1,10 +1,6 @@
 <?php
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-$pdo = new PDO('mysql:host=localhost;dbname=facturassalt', 'root', '');
-$pdo->exec("SET NAMES utf8mb4");
+$title = 'Gestión de IVA';
+require_once 'bd/db.php';
 
 // Alta / Edición
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -65,17 +61,10 @@ if (isset($_GET['eliminar'])) {
 $registros = $pdo->query("SELECT * FROM iva ORDER BY id ASC")->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Gestión de IVA</title>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-
-<body class="bg-gray-100 p-7" x-data="ivaCrud()">
+<?php require_once 'templates/header.php'; ?>
+<body class="bg-gray-100">
+<?php require_once 'templates/menu.php'; ?>
+<div class="p-7" x-data="ivaCrud()">
 
     <?php if (!empty($_SESSION['mensaje_iva'])): ?>
         <div id="mensaje-iva" class="mb-4 p-4 rounded <?= $_SESSION['tipo_mensaje_iva'] === 'error' ? 'bg-red-100 border border-red-300 text-red-800' : 'bg-green-100 border border-green-300 text-green-800' ?>">
@@ -227,5 +216,4 @@ $registros = $pdo->query("SELECT * FROM iva ORDER BY id ASC")->fetchAll(PDO::FET
         }
     </script>
 
-</body>
-</html>
+<?php require_once 'templates/footer.php'; ?>

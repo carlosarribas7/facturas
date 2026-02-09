@@ -1,15 +1,6 @@
 <?php
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-$pdo = new PDO('mysql:host=localhost;dbname=facturassalt', 'root', '');
-$pdo->exec("SET NAMES utf8mb4");
-
-// ---------------- HELPER ----------------
-function h($v) {
-    return htmlspecialchars($v ?? '', ENT_QUOTES, 'UTF-8');
-}
+$title = 'Gestión de Proveedores';
+require_once 'bd/db.php';
 
 // ---------------- PAGINACIÓN ----------------
 $porPagina = 10;
@@ -175,17 +166,10 @@ $stmt->bindValue(':porpagina', $porPagina, PDO::PARAM_INT);
 $stmt->execute();
 $registros = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Gestión de Proveedores</title>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-
-<body class="bg-gray-100 p-7"
+<?php require_once 'templates/header.php'; ?>
+<body class="bg-gray-100">
+<?php require_once 'templates/menu.php'; ?>
+<div class="p-7"
       x-data="proveedoresCrud(<?= htmlspecialchars(json_encode($listaProvincias), ENT_QUOTES, 'UTF-8') ?>, <?= htmlspecialchars(json_encode($listaGastos), ENT_QUOTES, 'UTF-8') ?>)">
 
     <?php if (!empty($_SESSION['mensaje_proveedor'])): ?>
@@ -667,5 +651,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-</body>
-</html>
+<?php require_once 'templates/footer.php'; ?>
